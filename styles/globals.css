@@ -6,6 +6,17 @@
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .navLink {
+        @apply p-2 hover:text-white cursor-pointer;
+    }
+    .navLink.active {
+        @apply text-white underline;
+    }
+}

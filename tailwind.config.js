@@ -5,7 +5,17 @@ module.exports = {
     ],
     darkMode: false, // or 'media' or 'class'
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                darkblue: {
+                    primary: "#19232e",
+                    secondary: "#0f171e",
+                },
+            },
+            fontFamily: {
+                lato: ["Lato", "sans-serif"],
+            },
+        },
     },
     variants: {
         extend: {},

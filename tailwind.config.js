@@ -1,4 +1,5 @@
 module.exports = {
+    mode: "jit",
     purge: [
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./components/**/*.{js,ts,jsx,tsx}",
@@ -7,18 +8,24 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                darkblue: {
-                    primary: "#19232e",
-                    secondary: "#0f171e",
-                },
+                hulublue: "#06202A",
             },
             fontFamily: {
                 lato: ["Lato", "sans-serif"],
             },
+            screens: {
+                "3xl": "2000px",
+            },
         },
     },
     variants: {
-        extend: {},
+        extend: {
+            animation: ["hover", "focus", "group-hover"],
+            textColor: ["active", "hover", "group-hover"],
+            padding: ["last"],
+            opacity: ["group-hover"],
+            textOpacity: ["group-hover"],
+        },
     },
-    plugins: [],
+    plugins: [require("tailwind-scrollbar-hide")],
 };

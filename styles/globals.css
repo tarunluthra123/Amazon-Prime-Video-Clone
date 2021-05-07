@@ -12,11 +12,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-    .navLink {
-        @apply p-2 hover:text-white cursor-pointer;
-    }
-    .navLink.active {
-        @apply text-white underline;
+@layer base {
+    body {
+        @apply bg-hulublue text-gray-300;
     }
 }

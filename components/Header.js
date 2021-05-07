@@ -1,67 +1,32 @@
 import Image from "next/image";
+import HeaderItem from "./HeaderItem";
 import {
+    BadgeCheckIcon,
+    HomeIcon,
+    LightningBoltIcon,
+    CollectionIcon,
     SearchIcon,
-    UserCircleIcon,
-    ChevronDownIcon,
-} from "@heroicons/react/solid";
-import Link from "next/link";
-import { useRouter } from "next/router";
+    UserIcon,
+} from "@heroicons/react/outline";
 
 const Header = () => {
-    const router = useRouter();
-    const active = router.pathname;
-
     return (
-        <div className="bg-darkblue-primary h-auto w-screen text-xl text-gray-400 font-lato pt-1 pl-1 pb-1 flex justify-between">
-            <span className="flex justify-around items-center md:w-1/2 md:justify-between">
-                <Image
-                    src="/primelogo.png"
-                    width={120}
-                    height={48.39}
-                    alt="Prime Video"
-                />
-                <span className="md:hidden flex justify-around w-2/5 items-center text-sm">
-                    Browse
-                    <ChevronDownIcon className=" h-6 w-6" />
-                </span>
-                <span className="hidden md:flex flex-row justify-around w-2/3  items-center text-base">
-                    <span
-                        className={"navLink" + (active == "/" ? " active" : "")}
-                    >
-                        <Link href="/">Home</Link>
-                    </span>
-                    <span
-                        className={
-                            "navLink" + (active == "/tv" ? " active" : "")
-                        }
-                    >
-                        <Link href="/tv">TV Shows</Link>
-                    </span>
-                    <span
-                        className={
-                            "navLink" + (active == "/movie" ? " active" : "")
-                        }
-                    >
-                        <Link href="/movie">Movies</Link>
-                    </span>
-                    <span
-                        className={
-                            "navLink" + (active == "/kids" ? " active" : "")
-                        }
-                    >
-                        <Link href="/kids">Kids</Link>
-                    </span>
-                </span>
-            </span>
-            <span className="flex justify-evenly w-2/5 items-center">
-                <SearchIcon className="h-6 w-6 hover:text-white cursor-pointer" />
-                <span className="flex justify-around w-3/5 items-center group cursor-pointer">
-                    <UserCircleIcon className="text-blue-300 h-8 w-8" />
-                    <span className="group-hover:text-white">Tarun</span>
-                    <ChevronDownIcon className="h-6 w-6" />
-                </span>
-            </span>
-        </div>
+        <header className="flex flex-col sm:flex-row m-5 justify-between items-center h-auto">
+            <div className="flex flex-grow justify-evenly max-w-2xl">
+                <HeaderItem title="HOME" Icon={HomeIcon} />
+                <HeaderItem title="TRENDING" Icon={LightningBoltIcon} />
+                <HeaderItem title="VERIFIED" Icon={BadgeCheckIcon} />
+                <HeaderItem title="COLLECTIONS" Icon={CollectionIcon} />
+                <HeaderItem title="SEARCH" Icon={SearchIcon} />
+                <HeaderItem title="ACCOUNT" Icon={UserIcon} />
+            </div>
+            <Image
+                src="/hulu_logo.png"
+                width={100}
+                height={50}
+                className="object-contain"
+            />
+        </header>
     );
 };
 

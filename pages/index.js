@@ -1,13 +1,39 @@
+import Head from "next/head";
 import Header from "../components/Header";
-import Carousel from "../components/Carousel";
+import NavBar from "../components/NavBar";
+import Results from "../components/Results";
 
-export default function Home() {
+import { movies_category, BASE_URL } from "../utils/requests";
+import axios from "axios";
+
+export default function Home({ results }) {
     return (
         <div>
+            <Head>
+                <title>Hulu Clone</title>
+                <link rel="icon" icon="favicon.ico" />
+            </Head>
             <Header />
-            <main className="bg-darkblue-secondary h-screen">
-                <Carousel />
-            </main>
+
+            {/* Nav */}
+            <NavBar />
+
+            {/* Results */}
+            <Results results={results} />
         </div>
     );
+}
+
+export async function getServerSideProps(context) {
+    const genre = context.query.find || "trending";
+
+    const url = BASE_URL + movies_category[genre].url;
+
+    const response = await axios.get(url).then((res) => res.data);
+
+    return {
+        props: {
+            results: response.results,
+        },
+    };
 }

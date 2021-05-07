@@ -1,5 +1,4 @@
 module.exports = {
-    mode: "jit",
     purge: [
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./components/**/*.{js,ts,jsx,tsx}",
@@ -9,9 +8,6 @@ module.exports = {
         extend: {
             colors: {
                 hulublue: "#06202A",
-            },
-            fontFamily: {
-                lato: ["Lato", "sans-serif"],
             },
             screens: {
                 "3xl": "2000px",

@@ -1,5 +1,6 @@
 export const BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = process.env.API_KEY;
+export const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original/";
 
 export const genres = {
     trending: {
@@ -85,5 +86,44 @@ export const genres = {
     western: {
         title: "Western",
         url: `/discover/movie?api_key=${API_KEY}&with_genres=37`,
+    },
+};
+
+export const find = {
+    movie: {
+        title: "Find Movie by ID",
+        url: function (id) {
+            return `/movie/${id}?api_key=${API_KEY}`;
+        },
+    },
+    tv: {
+        title: "Find TV Series by ID",
+        url: function (id) {
+            return `/tv/${id}?api_key=${API_KEY}`;
+        },
+    },
+};
+
+export const credits = {
+    movie: {
+        title: "Find credits for Movie by ID",
+        url: function (id) {
+            return `/movie/${id}/credits?api_key=${API_KEY}`;
+        },
+    },
+    tv: {
+        title: "Find credits for TV Series by ID",
+        url: function (id) {
+            return `/tv/${id}/credits?api_key=${API_KEY}`;
+        },
+    },
+};
+
+export const recommendations = {
+    tv: {
+        title: "Find recommendations for TV Series",
+        url: function (id) {
+            return `/tv/${id}/recommendations?api_key=${API_KEY}`;
+        },
     },
 };

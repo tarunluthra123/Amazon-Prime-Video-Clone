@@ -12,6 +12,14 @@ module.exports = {
             screens: {
                 "3xl": "2000px",
             },
+            minWidth: {
+                0: "0",
+                "1/5": "20%",
+                "1/4": "25%",
+                "1/2": "50%",
+                "3/4": "75%",
+                full: "100%",
+            },
         },
     },
     variants: {
@@ -21,6 +29,7 @@ module.exports = {
             padding: ["last"],
             opacity: ["group-hover"],
             textOpacity: ["group-hover"],
+            fontSize: ["hover", "focus", "group-hover"],
         },
     },
     plugins: [require("tailwind-scrollbar-hide")],

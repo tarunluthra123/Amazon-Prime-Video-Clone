@@ -15,10 +15,7 @@ const NavBar = () => {
                     </h2>
                 ))}
             </div>
-            <div
-                className="absolute top-0 right-0 bg-gradient-to-l
-            from-hulublue h-10 w-1/12 z-50"
-            />
+            <div className="absolute top-0 right-0 bg-gradient-to-l           from-hulublue h-10 w-1/12 z-50" />
         </nav>
     );
 };

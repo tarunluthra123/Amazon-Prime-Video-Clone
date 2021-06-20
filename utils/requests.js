@@ -127,3 +127,11 @@ export const recommendations = {
         },
     },
 };
+
+export const trailer = {
+    tv: {
+        url: function (id) {
+            return `/tv/${id}/videos?api_key=${API_KEY}`;
+        },
+    },
+};

@@ -20,6 +20,9 @@ module.exports = {
                 "3/4": "75%",
                 full: "100%",
             },
+            spacing: {
+                half: "50vh",
+            },
         },
     },
     variants: {

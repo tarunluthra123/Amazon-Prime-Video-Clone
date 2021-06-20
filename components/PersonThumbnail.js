@@ -4,7 +4,7 @@ import { BASE_IMAGE_URL } from "../utils/requests";
 const PersonThumbnail = ({ person }) => {
     const { character, name, original_name, profile_path } = person;
     return (
-        <div className="border border-solid border-gray-300 flex flex-col w-32 rounded">
+        <div className="border border-solid border-gray-300 flex flex-col w-32 rounded lg:w-48 lg:h-auto">
             <img
                 src={BASE_IMAGE_URL + profile_path}
                 alt={name}

@@ -29,13 +29,13 @@ const Details = ({ details, cast, suggestions, trailer }) => {
             <Header />
 
             <div
-                className="h-60 p-5 bg-cover flex items-end bg-center group md:px-16 lg:px-20 background_poster relative lg:bg-top lg:h-half lg:items-center xl:px-48 2xl:px-72 3xl:px-96"
+                className="h-60 p-5 flex items-end bg-top md:px-16 lg:px-20 background_poster relative lg:bg-top lg:h-half lg:items-center xl:px-48 2xl:px-72 3xl:px-96 justify-between bg-100 hover:bg-80 bg-no-repeat duration-100 transition-all lg:hover:bg-100"
                 style={{
                     backgroundImage: `url(${BASE_IMAGE_URL}${details.backdrop_path})`,
                 }}
             >
                 <div className="z-10 text-white">
-                    <h1 className="font-bold text-4xl text-white group-hover:text-5xl duration-200 cursor-pointer transition-all lg:text-5xl">
+                    <h1 className="font-bold text-4xl text-white cursor-pointer lg:text-5xl">
                         {details.name}
                     </h1>
                     <div className="lg:block hidden pr-10">
@@ -83,21 +83,32 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                         </div>
 
                         <p className="text-base">{details.overview}</p>
-
-                        <div className="pt-3 text-lg">
-                            Created By:{" "}
-                            <strong>
-                                {details.created_by
-                                    .map((creator) => creator.name)
-                                    .join(", ")}
-                            </strong>
+                        <div className="flex w-full 3xl:w-2/3 justify-between">
+                            {details.created_by.length > 0 && (
+                                <div className="pt-3 text-lg">
+                                    Created By: <br />
+                                    <strong>
+                                        {details.created_by
+                                            .map((creator) => creator.name)
+                                            .join(", ")}
+                                    </strong>
+                                </div>
+                            )}
+                            <div className="pt-3 text-lg">
+                                Produced By: <br />
+                                <strong>
+                                    {details.production_companies
+                                        .map((creator) => creator.name)
+                                        .join(", ")}
+                                </strong>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <img
                     src={BASE_IMAGE_URL + details.poster_path}
                     alt={details.name}
-                    className="w-1/2 z-20 h-full hidden lg:block"
+                    className="max-w-1/2 z-20 h-full hidden lg:block"
                 />
             </div>
 
@@ -144,13 +155,25 @@ const Details = ({ details, cast, suggestions, trailer }) => {
 
                 <p className="text-base">{details.overview}</p>
 
-                <div className="pt-3 text-lg">
-                    Created By:{" "}
-                    <strong>
-                        {details.created_by
-                            .map((creator) => creator.name)
-                            .join(", ")}
-                    </strong>
+                <div className="flex w-full justify-between">
+                    {details.created_by.length > 0 && (
+                        <div className="pt-3 text-lg">
+                            Created By: <br />
+                            <strong>
+                                {details.created_by
+                                    .map((creator) => creator.name)
+                                    .join(", ")}
+                            </strong>
+                        </div>
+                    )}
+                    <div className="pt-3 text-lg">
+                        Produced By: <br />
+                        <strong>
+                            {details.production_companies
+                                .map((creator) => creator.name)
+                                .join(", ")}
+                        </strong>
+                    </div>
                 </div>
             </div>
 
@@ -158,7 +181,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                 <h2 className="text-2xl font-bold text-white mb-2 lg:text-3xl">
                     Top Billed Cast
                 </h2>
-                <div className="flex flex-wrap w-full justify-center gap-3 lg:justify-between xl:gap-6">
+                <div className="flex flex-wrap w-full justify-center gap-3 lg:justify-start xl:gap-6">
                     {cast.map((person) => (
                         <PersonThumbnail key={person.id} person={person} />
                     ))}
@@ -169,7 +192,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                 <h2 className="text-2xl font-bold text-white mb-2 lg:text-3xl">
                     Recommendations
                 </h2>
-                <div className="flex flex-wrap w-full justify-center gap-3 lg:justify-between xl:gap-6">
+                <div className="flex flex-wrap w-full justify-center gap-3 lg:justify-start xl:gap-6">
                     {suggestions.map((suggestion) => (
                         <SuggestionThumbnail
                             key={suggestion.id}
@@ -203,8 +226,9 @@ export async function getServerSideProps(context) {
 
     const suggestions = suggestionsList.results.slice(0, 12).map((show) => ({
         name: show.name,
-        backdrop_path: show.backdrop_path,
+        backdrop_path: show.poster_path,
         id: show.id,
+        media: "tv",
     }));
 
     const trailerKey = videosList.results[0].key;

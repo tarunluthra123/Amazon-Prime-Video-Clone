@@ -23,6 +23,11 @@ module.exports = {
             spacing: {
                 half: "50vh",
             },
+            backgroundSize: {
+                80: "80%",
+                100: "100%",
+                120: "120%",
+            },
         },
     },
     variants: {
@@ -33,6 +38,8 @@ module.exports = {
             opacity: ["group-hover"],
             textOpacity: ["group-hover"],
             fontSize: ["hover", "focus", "group-hover"],
+            scale: ["hover", "group-hover"],
+            backgroundSize: ["hover"],
         },
     },
     plugins: [require("tailwind-scrollbar-hide")],

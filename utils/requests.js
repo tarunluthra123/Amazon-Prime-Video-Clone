@@ -126,12 +126,22 @@ export const recommendations = {
             return `/tv/${id}/recommendations?api_key=${API_KEY}`;
         },
     },
+    movie: {
+        url: function (id) {
+            return `/movie/${id}/recommendations?api_key=${API_KEY}`;
+        },
+    },
 };
 
 export const trailer = {
     tv: {
         url: function (id) {
             return `/tv/${id}/videos?api_key=${API_KEY}`;
+        },
+    },
+    movie: {
+        url: function (id) {
+            return `/movie/${id}/videos?api_key=${API_KEY}`;
         },
     },
 };

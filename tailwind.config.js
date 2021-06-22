@@ -38,7 +38,6 @@ module.exports = {
             opacity: ["group-hover"],
             textOpacity: ["group-hover"],
             fontSize: ["hover", "focus", "group-hover"],
-            scale: ["hover", "group-hover"],
             backgroundSize: ["hover"],
         },
     },

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = process.env.API_KEY;
 export const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original/";
@@ -144,4 +146,46 @@ export const trailer = {
             return `/movie/${id}/videos?api_key=${API_KEY}`;
         },
     },
+};
+
+async function searchTvSeries(query) {
+    const url = `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&page=1&query=${query}`;
+    const response = await axios.get(url).then((res) => res.data);
+    return response.results;
+}
+
+async function searchMovies(query) {
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&page=1&query=${query}`;
+    const response = await axios.get(url).then((res) => res.data);
+    return response.results;
+}
+
+export const querySearch = async (query) => {
+    let tvSeries = await searchTvSeries(query);
+    let movies = await searchMovies(query);
+    tvSeries = tvSeries.map((show) => ({
+        id: show.id,
+        backdrop_path: show.backdrop_path,
+        name: show.name || show.original_name,
+        first_air_date: show.first_air_date || "",
+        overview: show.overview || "",
+        vote_count: show.vote_count || 0,
+        media_type: "tv",
+    }));
+
+    movies = movies.map((movie) => ({
+        id: movie.id,
+        backdrop_path: movie.backdrop_path,
+        title: movie.title,
+        release_date: movie.release_date || "",
+        overview: movie.overview || "",
+        vote_count: movie.vote_count || 0,
+        media_type: "movie",
+    }));
+
+    const result = [...tvSeries, ...movies];
+    console.log(result);
+    result.shuffle();
+
+    return result;
 };

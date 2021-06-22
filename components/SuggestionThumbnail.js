@@ -6,7 +6,7 @@ const SuggestionThumbnail = ({ suggestion }) => {
     const { id, backdrop_path, name, media } = suggestion;
     return (
         <div
-            className="border border-solid border-gray-300 flex flex-col rounded cursor-pointer w-32 lg:w-36 xl:w-40 lg:h-auto"
+            className="border border-solid border-gray-300 flex flex-col rounded cursor-pointer w-24 sm:w-32 lg:w-36 xl:w-40 lg:h-auto"
             onClick={() => {
                 Router.push(`/${media}/${id}`);
             }}

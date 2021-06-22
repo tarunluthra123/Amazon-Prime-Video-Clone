@@ -9,7 +9,7 @@ const NavBar = () => {
                     <h2
                         key={key}
                         onClick={() => Router.push(`/?find=${key}`)}
-                        className="cursor-pointer transition duration-100 transform hover:scale-125 hover:text-white active:text-red-500 last:pr-20"
+                        className="cursor-pointer transition duration-100 transform hover:scale-125 hover:text-white last:pr-20"
                     >
                         {title}
                     </h2>

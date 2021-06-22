@@ -16,26 +16,24 @@ import {
     buildStyles,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { PlayIcon } from "@heroicons/react/solid";
+import { PlayIcon, HeartIcon, ClockIcon } from "@heroicons/react/solid";
+import AddToListButton from "../../components/AddToListButton";
+import { getUser } from "../../utils/user";
+import { addToFavourites, addToWatchlist } from "../../utils/api";
 
 const Details = ({ details, cast, suggestions, trailer }) => {
-    // Dummy user. Will be replaced later by actual user details that is fetched from redux
-    const user = { name: "Tarun" };
-
-    console.log(details);
-
     return (
         <div>
             <Header />
 
             <div
-                className="h-60 p-5 flex items-end bg-top md:px-16 lg:px-20 background_poster relative lg:bg-top lg:h-half lg:items-center xl:px-48 2xl:px-72 3xl:px-96 justify-between bg-100 hover:bg-80 bg-no-repeat duration-100 transition-all lg:hover:bg-100"
+                className="h-60 p-5 flex items-end bg-top md:px-16 lg:px-20 background_poster relative lg:bg-top lg:h-half lg:items-center xl:px-48 2xl:px-72 3xl:px-96 justify-between bg-100 hover:bg-80 bg-no-repeat duration-100 transition-all lg:hover:bg-100 pb-14 sm:pb-0"
                 style={{
                     backgroundImage: `url(${BASE_IMAGE_URL}${details.backdrop_path})`,
                 }}
             >
                 <div className="z-10 text-white">
-                    <h1 className="font-bold text-4xl text-white cursor-pointer lg:text-5xl">
+                    <h1 className="font-bold text-2xl sm:text-4xl text-white cursor-pointer lg:text-5xl">
                         {details.name}
                     </h1>
                     <div className="lg:block hidden pr-10">
@@ -50,7 +48,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                             <span>{details.episode_run_time} mins</span>
                         </div>
 
-                        <div className="flex">
+                        <div className="flex items-center">
                             <div className="flex items-center w-1/4 justify-around">
                                 <div className="w-16 m-2">
                                     <CircularProgressbarWithChildren
@@ -66,7 +64,18 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                                 </div>
                                 <strong>User Score</strong>
                             </div>
-
+                            <AddToListButton
+                                Icon={HeartIcon}
+                                title={"Favourites"}
+                                id={details.id}
+                                media={"tv"}
+                            />
+                            <AddToListButton
+                                Icon={ClockIcon}
+                                title={"Watchlist"}
+                                id={details.id}
+                                media={"tv"}
+                            />
                             <a
                                 className="flex items-center cursor-pointer mx-2 justify-around w-32 text-white hover:text-gray-300 duration-100"
                                 href={trailer}
@@ -121,7 +130,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                     <span>{details.episode_run_time} mins</span>
                 </div>
 
-                <div className="flex">
+                <div className="flex items-center">
                     <div className="flex items-center w-1/4 justify-around">
                         <div className="w-16 m-2">
                             <CircularProgressbarWithChildren
@@ -132,20 +141,25 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                                     trailColor: "#0e4257",
                                 })}
                             >
-                                <strong>{details.vote_average}</strong>
+                                <strong className="text-xs sm:text-base">
+                                    {details.vote_average}
+                                </strong>
                             </CircularProgressbarWithChildren>
                         </div>
-                        <strong>User Score</strong>
+                        <strong className="text-xs sm:text-base">
+                            User Score
+                        </strong>
                     </div>
-
+                    <AddToListButton Icon={HeartIcon} title={"Favourites"} />
+                    <AddToListButton Icon={ClockIcon} title={"Watchlist"} />
                     <a
-                        className="flex items-center cursor-pointer mx-2 justify-around w-32 text-white hover:text-gray-300 duration-100"
+                        className="flex items-center cursor-pointer mx-2 justify-around w-32 text-gray-400 hover:text-gray-200 duration-100"
                         href={trailer}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         <PlayIcon className="w-10" />
-                        <p>Play Trailer</p>
+                        <p className="font-bold">Play Trailer</p>
                     </a>
                 </div>
 

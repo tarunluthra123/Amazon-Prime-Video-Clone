@@ -17,6 +17,12 @@
     }
 }
 
+@layer components {
+    .sign-in-form-input input:focus + label {
+        @apply top-1 text-sm;
+    }
+}
+
 @media (min-width: 1024px) {
     .background_poster:after {
         position: absolute;

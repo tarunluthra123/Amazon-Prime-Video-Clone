@@ -160,6 +160,26 @@ async function searchMovies(query) {
     return response.results;
 }
 
+function shuffle(array) {
+    let currentIndex = array.length,
+        randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex],
+            array[currentIndex],
+        ];
+    }
+
+    return array;
+}
+
 export const querySearch = async (query) => {
     let tvSeries = await searchTvSeries(query);
     let movies = await searchMovies(query);
@@ -184,8 +204,7 @@ export const querySearch = async (query) => {
     }));
 
     const result = [...tvSeries, ...movies];
-    console.log(result);
-    result.shuffle();
+    shuffle(result);
 
     return result;
 };

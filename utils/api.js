@@ -11,6 +11,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     (request) => {
         const token = getAuthToken();
+        console.log({ token });
         if (token && token != "undefined" && token != "null") {
             request.headers["Authorization"] = `Bearer ${token}`;
         }
@@ -155,10 +156,29 @@ export async function getUserDetails(access) {
     }
 }
 
+import { fetchMovieDetails, fetchTvSeriesDetails } from "./requests";
+
 export async function fetchWatchList() {
     const url = routes.watchlist.fetch.url;
-    const response = await axiosInstance.get(url).then((res) => res.data);
-    return response;
+    const response = await axiosInstance
+        .get(url)
+        .then((res) => res.data)
+        .catch((err) => {
+            console.error(err.response.data.error);
+        });
+
+    if (!response) {
+        return [];
+    }
+
+    const list = response?.watchlist;
+
+    const watchlist = list.map((item) => ({
+        ...item,
+        fetchData: true,
+    }));
+
+    return watchlist || [];
 }
 
 export async function addToWatchlist(tmdb_id, media) {

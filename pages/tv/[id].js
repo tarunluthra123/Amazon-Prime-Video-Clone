@@ -27,7 +27,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
             <Header />
 
             <div
-                className="h-60 p-5 flex items-end bg-top md:px-16 lg:px-20 background_poster relative lg:bg-top lg:h-half lg:items-center xl:px-48 2xl:px-72 3xl:px-96 justify-between bg-100 hover:bg-80 bg-no-repeat duration-100 transition-all lg:hover:bg-100 pb-14 sm:pb-0"
+                className="h-60 p-5 flex items-end bg-top md:px-16 lg:px-20 background_poster relative lg:bg-top lg:h-half lg:items-center xl:px-48 2xl:px-72 3xl:px-96 justify-between bg-100 hover:bg-80 bg-no-repeat duration-100 transition-all lg:hover:bg-100 pb-14 xs:pb-0"
                 style={{
                     backgroundImage: `url(${BASE_IMAGE_URL}${details.backdrop_path})`,
                 }}

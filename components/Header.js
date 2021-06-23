@@ -7,6 +7,7 @@ import {
     CollectionIcon,
     SearchIcon,
     UserIcon,
+    ClockIcon,
 } from "@heroicons/react/outline";
 import { useState } from "react";
 import Router from "next/router";
@@ -25,7 +26,11 @@ const Header = () => {
                         onClick={() => Router.push("/")}
                     />
                     <HeaderItem title="TRENDING" Icon={LightningBoltIcon} />
-                    <HeaderItem title="VERIFIED" Icon={BadgeCheckIcon} />
+                    <HeaderItem
+                        title="WATCHLIST"
+                        Icon={ClockIcon}
+                        onClick={() => Router.push("/watchlist")}
+                    />
                     <HeaderItem title="COLLECTIONS" Icon={CollectionIcon} />
                     <HeaderItem
                         title="SEARCH"

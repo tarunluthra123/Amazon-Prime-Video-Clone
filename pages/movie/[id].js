@@ -19,15 +19,12 @@ import "react-circular-progressbar/dist/styles.css";
 import { PlayIcon } from "@heroicons/react/solid";
 
 const Details = ({ details, cast, suggestions, trailer }) => {
-    // Dummy user. Will be replaced later by actual user details that is fetched from redux
-    const user = { name: "Tarun" };
-
     return (
         <div>
             <Header />
 
             <div
-                className="h-60 p-5 flex items-end bg-top md:px-16 lg:px-20 background_poster relative lg:bg-top lg:h-half lg:items-center xl:px-48 2xl:px-72 3xl:px-96 justify-between bg-100 hover:bg-80 bg-no-repeat duration-200 transition-all lg:transition-none lg:hover:bg-100"
+                className="h-60 p-5 flex items-end bg-top md:px-16 lg:px-20 background_poster relative lg:bg-top lg:h-half lg:items-center xl:px-48 2xl:px-72 3xl:px-96 justify-between bg-100 hover:bg-80 bg-no-repeat duration-200 transition-all lg:transition-none lg:hover:bg-100 pb-14 xs:pb-0"
                 style={{
                     backgroundImage: `url(${BASE_IMAGE_URL}${details.backdrop_path})`,
                 }}
@@ -83,7 +80,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                         <p className="text-base">{details.overview}</p>
 
                         <div className="pt-3 text-lg">
-                            Produced By:{" "}
+                            Produced By: <br />
                             <strong>
                                 {details.production_companies
                                     .map((company) => company.name)
@@ -119,10 +116,14 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                                     trailColor: "#0e4257",
                                 })}
                             >
-                                <strong>{details.vote_average}</strong>
+                                <strong className="text-xs sm:text-base">
+                                    {details.vote_average}
+                                </strong>
                             </CircularProgressbarWithChildren>
                         </div>
-                        <strong>User Score</strong>
+                        <strong className="text-xs sm:text-base">
+                            User Score
+                        </strong>
                     </div>
 
                     <a

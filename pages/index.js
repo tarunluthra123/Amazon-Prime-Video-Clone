@@ -13,6 +13,8 @@ export default function Home({ results }) {
         pingTest();
     }, []);
 
+    console.log(results)
+
     return (
         <div>
             <Head>

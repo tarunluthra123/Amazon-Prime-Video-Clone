@@ -10,6 +10,7 @@ module.exports = {
                 hulublue: "#06202A",
             },
             screens: {
+                xs: "400px",
                 "3xl": "2000px",
             },
             minWidth: {

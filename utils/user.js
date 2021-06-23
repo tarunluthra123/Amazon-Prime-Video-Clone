@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { parseCookies, destroyCookie, setCookie } from "nookies";
 import { login, logout } from "../redux/auth";
+import { setWatchlist, setFavourites } from "../redux/list";
 import { refreshToken, getUserDetails } from "./api";
 
 export function getUser() {
@@ -26,7 +27,12 @@ export function getUser() {
                 user.access = access;
 
                 console.log("Logged in from cookie");
+                const { watchlist, favourites } = user;
+                delete user.watchlist;
+                delete user.favourites;
                 dispatch(login(user));
+                dispatch(setWatchlist(watchlist));
+                dispatch(setFavourites(favourites));
             })
             .catch((error) => {
                 console.error(error);
@@ -41,16 +47,24 @@ export function logoutUser(dispatch) {
     destroyCookie(null, "hulu-user");
 
     dispatch(logout());
+    dispatch(setWatchlist([]));
+    dispatch(setFavourites([]));
 }
 
 export function loginUser(dispatch, user, refresh) {
+    const { watchlist, favourites } = user;
+    delete user.watchlist;
+    delete user.favourites;
+
     dispatch(login(user));
+    dispatch(setWatchlist(watchlist));
+    dispatch(setFavourites(favourites));
 
     setCookie(null, "hulu-user", refresh, {
         maxAge: 60 * 60,
     });
 
     setCookie(null, "hulu-access", user.access, {
-        maxAge: 60 * 15
-    })
+        maxAge: 60 * 15,
+    });
 }

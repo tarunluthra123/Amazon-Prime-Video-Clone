@@ -6,10 +6,13 @@ import {
     removeFromWatchlist,
 } from "../utils/api";
 import { getUser } from "../utils/user";
+import { useSelector } from "react-redux";
 
 const AddToListButton = ({ title, Icon, id, media }) => {
-    const user = getUser();
+    const watchlist = useSelector((state) => state.list.watchlist);
+    const favourites = useSelector((state) => state.list.favourites);
     const [description, setDescription] = useState(`Login to add to ${title}`);
+    const user = getUser();
 
     function onClick() {
         if (title == "favourites") {
@@ -28,9 +31,9 @@ const AddToListButton = ({ title, Icon, id, media }) => {
     }
 
     useEffect(() => {
+        console.log(user);
         if (user && user.isLoggedIn) {
-            if (title == "favourites") {
-                const favourites = user.favourites;
+            if (title == "Favourites") {
                 if (
                     favourites.find(
                         (item) => item.tmdb_id == id && item.media == media
@@ -41,7 +44,6 @@ const AddToListButton = ({ title, Icon, id, media }) => {
                     setDescription(`Add to ${title}`);
                 }
             } else {
-                const watchlist = user.watchlist;
                 if (
                     watchlist.find(
                         (item) => item.tmdb_id == id && item.media == media

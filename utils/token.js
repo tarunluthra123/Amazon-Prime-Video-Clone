@@ -1,15 +1,16 @@
 import { parseCookies } from "nookies";
-import { useSelector } from "react-redux";
-import { getUser } from "./user";
 
 export function getAuthToken() {
     const cookies = parseCookies();
+    console.log({ cookies });
     const access = cookies["hulu-access"];
+    console.log({ access });
     return access;
 }
 
 export function getRefreshToken() {
     const cookies = parseCookies();
+    console.log({ cookies });
     const userCookie = cookies["hulu-user"];
     if (userCookie) {
         const refresh = userCookie;

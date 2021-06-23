@@ -208,3 +208,22 @@ export const querySearch = async (query) => {
 
     return result;
 };
+
+export async function fetchMovieDetails(tmdb_id) {
+    const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+
+    console.log(API_KEY);
+    const url = `https://api.themoviedb.org/3/movie/${tmdb_id}?api_key=${API_KEY}`;
+    const response = await axios.get(url).then((res) => res.data);
+
+    return response;
+}
+
+export async function fetchTvSeriesDetails(tmdb_id) {
+    const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+    console.log(API_KEY);
+    const url = `https://api.themoviedb.org/3/tv/${tmdb_id}?api_key=${API_KEY}`;
+    const response = await axios.get(url).then((res) => res.data);
+
+    return response;
+}

@@ -8,7 +8,7 @@ const Results = ({ results }) => {
         xl:grid-cols-4 2xl:grid-cols-5 3xl:flex flex-wrap justify-center"
         >
             {results.map((result) => (
-                <Thumbnail key={result.id} result={result} />
+                <Thumbnail key={result.id || result.tmdb_id} result={result} />
             ))}
         </FlipMove>
     );

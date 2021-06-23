@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Results from "../components/Results";
-import { fetchWatchList } from "../utils/api";
+import { fetchFavourites } from "../utils/api";
 
-export default function Watchlist({}) {
+export default function Favourites({}) {
     const [loading, setLoading] = useState(true);
     const [results, setResults] = useState([]);
 
     useEffect(async () => {
-        const response = await fetchWatchList();
+        const response = await fetchFavourites();
         setResults(response);
         setLoading(false);
     }, []);
@@ -22,7 +22,7 @@ export default function Watchlist({}) {
             <NavBar />
 
             <h1 className="text-center mt-10 font-bold text-2xl lg:text-3xl">
-                Watchlist
+                Favourites
             </h1>
 
             {loading && <div>Loading...</div>}

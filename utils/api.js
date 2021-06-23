@@ -156,8 +156,6 @@ export async function getUserDetails(access) {
     }
 }
 
-import { fetchMovieDetails, fetchTvSeriesDetails } from "./requests";
-
 export async function fetchWatchList() {
     const url = routes.watchlist.fetch.url;
     const response = await axiosInstance
@@ -179,6 +177,29 @@ export async function fetchWatchList() {
     }));
 
     return watchlist || [];
+}
+
+export async function fetchFavourites() {
+    const url = routes.favourites.fetch.url;
+    const response = await axiosInstance
+        .get(url)
+        .then((res) => res.data)
+        .catch((err) => {
+            console.error(err.response.data.error);
+        });
+
+    if (!response) {
+        return [];
+    }
+
+    const list = response?.favourites;
+
+    const favourites = list.map((item) => ({
+        ...item,
+        fetchData: true,
+    }));
+
+    return favourites || [];
 }
 
 export async function addToWatchlist(tmdb_id, media) {

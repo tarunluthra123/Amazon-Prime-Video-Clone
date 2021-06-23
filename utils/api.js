@@ -128,6 +128,21 @@ export async function signInUser(username, password) {
     }
 }
 
+export async function signUpUser(username, password, name) {
+    const url = routes.auth.signup.url;
+    try {
+        const response = await axiosInstance
+            .post(url, { username, password, name })
+            .then((res) => res.data);
+
+        return response;
+    } catch (error) {
+        return {
+            error,
+        };
+    }
+}
+
 export async function refreshToken(refresh) {
     const url = routes.auth.refresh.url;
     try {

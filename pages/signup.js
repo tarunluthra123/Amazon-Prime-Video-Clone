@@ -5,12 +5,13 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { getUser, loginUser } from "../utils/user";
 import Header from "../components/Header";
-import { signInUser } from "../utils/api";
+import { signUpUser } from "../utils/api";
 
-const Login = (props) => {
+const SignUp = (props) => {
     const [credentials, setCredentials] = useState({
         username: "",
         password: "",
+        name: "",
     });
     const [errorMessage, setErrorMessage] = useState(null);
     const dispatch = useDispatch();
@@ -38,9 +39,10 @@ const Login = (props) => {
     async function submit() {
         setErrorMessage(null);
         try {
-            const response = await signInUser(
+            const response = await signUpUser(
                 credentials.username,
-                credentials.password
+                credentials.password,
+                credentials.name
             );
 
             if (response.error) {
@@ -61,23 +63,20 @@ const Login = (props) => {
     return (
         <>
             <Header />
-            <div className="mx-32 md:mx-40 my-44 lg:px-40 xl:px-60 2xl:px-96">
-                <Link href="/">
-                    <img
-                        src="/hulu_logo.png"
-                        alt="Linkedin"
-                        height="20px"
-                        className="h-8 mb-5 cursor-pointer"
-                    />
-                </Link>
+            <div className="mx-32 md:mx-40 my-28 sm:my-44 lg:px-40 xl:px-60 2xl:px-96">
                 <div className="bg-hulublue border border-solid border-gray-300 h-auto shadow-xl p-7  rounded-md">
                     <h2 className="text-white text-3xl font-bold lg:text-4xl">
-                        Sign in
+                        Sign Up
                     </h2>
                     <p className="text-white text-md lg:text-lg">
                         Enjoy your favourite movies and shows now !
                     </p>
                     <div className="mt-4">
+                        <CredentialInputBox
+                            title="name"
+                            type="text"
+                            onChange={onChange}
+                        />
                         <CredentialInputBox
                             title="username"
                             type="text"
@@ -99,14 +98,14 @@ const Login = (props) => {
                             className="bg-gray-300 text-black font-bold text-base xl:text-lg rounded-full px-8 py-5 w-full mt-5 focus:outline-none focus:ring hover:bg-gray-100"
                             onClick={submit}
                         >
-                            Sign in
+                            Sign Up
                         </button>
                     </div>
                 </div>
                 <div className="mt-10 text-center mx-auto text-white text-base lg:text-lg">
-                    New to Hulu?{" "}
+                    Already have an account?{" "}
                     <span className="text-white font-bold">
-                        <Link href="/signup">Join now</Link>
+                        <Link href="/signup">Login here</Link>
                     </span>
                 </div>
             </div>
@@ -114,4 +113,4 @@ const Login = (props) => {
     );
 };
 
-export default Login;
+export default SignUp;

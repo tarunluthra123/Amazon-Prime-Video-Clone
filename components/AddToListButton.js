@@ -7,6 +7,7 @@ import {
 } from "../utils/api";
 import { getUser } from "../utils/user";
 import { useSelector } from "react-redux";
+import Router from "next/router";
 
 const AddToListButton = ({ title, Icon, id, media }) => {
     const watchlist = useSelector((state) => state.list.watchlist);
@@ -15,23 +16,24 @@ const AddToListButton = ({ title, Icon, id, media }) => {
     const user = getUser();
 
     function onClick() {
-        if (title == "favourites") {
+        if (title == "Favourites") {
             if (description.slice(0, 3) == "Add") {
                 addToFavourites(id, media);
             } else {
                 removeFromFavourites(id, media);
             }
+            Router.push("/favourites");
         } else {
             if (description.slice(0, 3) == "Add") {
                 addToWatchlist(id, media);
             } else {
                 removeFromWatchlist(id, media);
             }
+            Router.push("/watchlist");
         }
     }
 
     useEffect(() => {
-        console.log(user);
         if (user && user.isLoggedIn) {
             if (title == "Favourites") {
                 if (
@@ -60,7 +62,7 @@ const AddToListButton = ({ title, Icon, id, media }) => {
     return (
         <button
             title={description}
-            className="rounded-full h-8 w-8 flex items-center justify-center bg-white text-hulublue p-2 mx-2 relative group cursor-pointer ml-3 hover:bg-gray-300 duration-100"
+            className="rounded-full h-8 w-8 flex items-center justify-center bg-white text-hulublue p-2 mx-2 relative group cursor-pointer ml-3 hover:bg-gray-300 duration-100 outline-none focus:outline-none"
             onClick={onClick}
         >
             <Icon />

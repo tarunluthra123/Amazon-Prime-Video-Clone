@@ -3,15 +3,19 @@ import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Results from "../components/Results";
 import { fetchFavourites } from "../utils/api";
+import { updateFavourites } from "../utils/lists";
+import { useDispatch } from "react-redux";
 
 export default function Favourites({}) {
     const [loading, setLoading] = useState(true);
     const [results, setResults] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(async () => {
         const response = await fetchFavourites();
         setResults(response);
         setLoading(false);
+        updateFavourites(dispatch, response);
     }, []);
 
     return (

@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
+import "react-circular-progressbar/dist/styles.css";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 

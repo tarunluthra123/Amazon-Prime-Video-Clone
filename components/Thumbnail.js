@@ -34,7 +34,14 @@ const Thumbnail = forwardRef(({ result }, ref) => {
             ref={ref}
             className="group cursor-pointer p-2 transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50 max-w-lg"
             onClick={() =>
-                Router.push(`/${details.media_type || "movie"}/${details.id}`)
+                Router.push(
+                    `/${
+                        details.media_type ||
+                        details.media ||
+                        result.media ||
+                        "movie"
+                    }/${details.id}`
+                )
             }
         >
             <Image
@@ -48,7 +55,7 @@ const Thumbnail = forwardRef(({ result }, ref) => {
             <div className="p-2">
                 <p className="truncate max-w-md">{details.overview}</p>
                 <h2 className="mt-1 text-2xl text-white group-hover:font-bold  transition-all duration-100 ease-in-out">
-                    {details.title || details.original_name || details.name}
+                    {details.title || details.name || details.original_name}
                 </h2>
                 <p className="flex items-center invisible group-hover:visible group-hover:text-white">
                     {`${details.release_date || details.first_air_date} • `}

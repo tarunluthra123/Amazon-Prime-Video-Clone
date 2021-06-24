@@ -24,7 +24,10 @@ export function getUser() {
                     console.error(user.error);
                     return;
                 }
-                user.access = access;
+
+                setCookie(null, "hulu-access", access, {
+                    maxAge: 60 * 15,
+                });
 
                 console.log("Logged in from cookie");
                 const { watchlist, favourites } = user;

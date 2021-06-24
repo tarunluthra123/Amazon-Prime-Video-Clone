@@ -15,8 +15,8 @@ import {
     CircularProgressbarWithChildren,
     buildStyles,
 } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
-import { PlayIcon } from "@heroicons/react/solid";
+import { PlayIcon, HeartIcon, ClockIcon } from "@heroicons/react/solid";
+import AddToListButton from "../../components/AddToListButton";
 
 const Details = ({ details, cast, suggestions, trailer }) => {
     return (
@@ -45,7 +45,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                             <span>{details.runtime} mins</span>
                         </div>
 
-                        <div className="flex">
+                        <div className="flex items-center">
                             <div className="flex items-center w-1/4 justify-around">
                                 <div className="w-16 m-2">
                                     <CircularProgressbarWithChildren
@@ -61,16 +61,29 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                                 </div>
                                 <strong>User Score</strong>
                             </div>
-
-                            <a
-                                className="flex items-center cursor-pointer mx-2 justify-around w-32 text-white hover:text-gray-300 duration-100"
-                                href={trailer}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <PlayIcon className="w-10" />
-                                <p>Play Trailer</p>
-                            </a>
+                            <AddToListButton
+                                Icon={HeartIcon}
+                                title={"Favourites"}
+                                id={details.id || details.tmdb_id}
+                                media={"movie"}
+                            />
+                            <AddToListButton
+                                Icon={ClockIcon}
+                                title={"Watchlist"}
+                                id={details.id || details.tmdb_id}
+                                media={"movie"}
+                            />
+                            {trailer && (
+                                <a
+                                    className="flex items-center cursor-pointer mx-2 justify-around w-32 text-white hover:text-gray-300 duration-100"
+                                    href={trailer}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <PlayIcon className="w-10" />
+                                    <p>Play Trailer</p>
+                                </a>
+                            )}
                         </div>
 
                         <div className="text-gray-400 italic text-lg pb-1">
@@ -105,7 +118,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                     <span>{details.runtime} mins</span>
                 </div>
 
-                <div className="flex">
+                <div className="flex items-center">
                     <div className="flex items-center w-1/4 justify-around">
                         <div className="w-16 m-2">
                             <CircularProgressbarWithChildren
@@ -126,15 +139,30 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                         </strong>
                     </div>
 
-                    <a
-                        className="flex items-center cursor-pointer mx-2 justify-around w-32 text-white hover:text-gray-300 duration-100"
-                        href={trailer}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <PlayIcon className="w-10" />
-                        <p>Play Trailer</p>
-                    </a>
+                    <AddToListButton
+                        Icon={HeartIcon}
+                        title={"Favourites"}
+                        id={details.id || details.tmdb_id}
+                        media={"movie"}
+                    />
+                    <AddToListButton
+                        Icon={ClockIcon}
+                        title={"Watchlist"}
+                        id={details.id || details.tmdb_id}
+                        media={"movie"}
+                    />
+
+                    {trailer && (
+                        <a
+                            className="flex items-center cursor-pointer mx-2 justify-around w-32 text-gray-400 hover:text-gray-200 duration-100"
+                            href={trailer}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <PlayIcon className="w-10" />
+                            <p>Play Trailer</p>
+                        </a>
+                    )}
                 </div>
 
                 <div className="text-gray-400 italic text-lg pb-1">

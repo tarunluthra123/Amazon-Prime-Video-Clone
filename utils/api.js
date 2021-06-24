@@ -11,7 +11,6 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     (request) => {
         const token = getAuthToken();
-        console.log({ token });
         if (token && token != "undefined" && token != "null") {
             request.headers["Authorization"] = `Bearer ${token}`;
         }

@@ -1,7 +1,10 @@
 import axios from "axios";
 import { getAuthToken, getRefreshToken } from "./token";
 
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:5000/api";
+const BACKEND_URL =
+    (process.env.BACKEND_URL ||
+        process.env.NEXT_PUBLIC_BACKEND_URL ||
+        "http://localhost:5000/") + "api";
 
 const axiosInstance = axios.create({
     baseURL: BACKEND_URL,

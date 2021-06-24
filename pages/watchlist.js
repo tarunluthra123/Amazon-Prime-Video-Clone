@@ -29,7 +29,7 @@ export default function Watchlist({}) {
                 Watchlist
             </h1>
 
-            {loading && <div>Loading...</div>}
+            {loading && <div className="loader">Loading...</div>}
 
             {/* Results */}
             {!loading && <Results results={results} />}

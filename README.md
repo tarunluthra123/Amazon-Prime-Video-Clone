@@ -9,7 +9,11 @@ This project can be viewed live here - [Click Here](https://hulu-clone-amber.ver
 
 ![](public/hulu-clone-multimedia-screenshot.png)
 
-![](./public/hulu-clone-screenshot.png)
+![](./public/hulu1.png)
+
+![](./public/hulu2.png)
+
+![](./public/hulu3.png)
 
 ### To run locally
 

@@ -206,7 +206,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                 <h2 className="text-2xl font-bold text-white mb-2 lg:text-3xl">
                     Top Billed Cast
                 </h2>
-                <div className="flex flex-wrap w-full justify-center gap-3 lg:justify-start xl:gap-6">
+                <div className="flex flex-wrap w-full justify-center gap-3 lg:justify-start xl:gap-4">
                     {cast.map((person) => (
                         <PersonThumbnail key={person.id} person={person} />
                     ))}
@@ -217,7 +217,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
                 <h2 className="text-2xl font-bold text-white mb-2 lg:text-3xl">
                     Recommendations
                 </h2>
-                <div className="flex flex-wrap w-full justify-center gap-3 lg:justify-start xl:gap-6">
+                <div className="flex flex-wrap w-full justify-center gap-3 lg:justify-start xl:gap-4">
                     {suggestions.map((suggestion) => (
                         <SuggestionThumbnail
                             key={suggestion.id}
@@ -241,7 +241,7 @@ export async function getServerSideProps(context) {
     url = BASE_URL + trailer.tv.url(id);
     const videosList = await axios.get(url).then((res) => res.data);
 
-    const cast = castList.cast.map((person) => ({
+    const cast = castList.cast.slice(0, 12).map((person) => ({
         character: person.character,
         id: person.id,
         name: person.name,

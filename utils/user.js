@@ -29,7 +29,6 @@ export function getUser() {
                     maxAge: 60 * 15,
                 });
 
-                console.log("Logged in from cookie");
                 const { watchlist, favourites } = user;
                 delete user.watchlist;
                 delete user.favourites;

@@ -9,6 +9,7 @@ const PersonThumbnail = ({ person }) => {
                 src={BASE_IMAGE_URL + profile_path}
                 alt={name}
                 className="w-full h-2/3 rounded"
+                loading="lazy"
             />
             <div className="p-2 w-full">
                 <strong>{name || original_name}</strong>

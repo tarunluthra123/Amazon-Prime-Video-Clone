@@ -15,6 +15,7 @@ const SuggestionThumbnail = ({ suggestion }) => {
                 src={BASE_IMAGE_URL + backdrop_path}
                 alt={name}
                 className="w-full"
+                loading="lazy"
             />
             <div className="p-2">
                 <strong>{name}</strong>

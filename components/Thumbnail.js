@@ -1,7 +1,7 @@
-import Image from "next/image";
-import { ThumbUpIcon } from "@heroicons/react/solid";
 import { forwardRef, useEffect, useState } from "react";
+import Image from "next/image";
 import Router from "next/router";
+import { ThumbUpIcon } from "@heroicons/react/solid";
 import {
     BASE_IMAGE_URL,
     fetchMovieDetails,

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import CredentialInputBox from "../components/CredentialInputBox";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { getUser, loginUser } from "../utils/user";
+import { useDispatch } from "react-redux";
+import CredentialInputBox from "../components/CredentialInputBox";
 import Header from "../components/Header";
+import { getUser, loginUser } from "../utils/user";
 import { signUpUser } from "../utils/api";
 
-const SignUp = (props) => {
+const SignUp = () => {
     const [credentials, setCredentials] = useState({
         username: "",
         password: "",

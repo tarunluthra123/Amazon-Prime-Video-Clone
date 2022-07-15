@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import CredentialInputBox from "../components/CredentialInputBox";
-import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import CredentialInputBox from "../components/CredentialInputBox";
 import { getUser, loginUser } from "../utils/user";
 import Header from "../components/Header";
 import { signInUser } from "../utils/api";

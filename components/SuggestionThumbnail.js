@@ -1,6 +1,7 @@
 import React from "react";
-import { BASE_IMAGE_URL } from "../utils/requests";
 import Router from "next/router";
+import Image from "next/image";
+import { BASE_IMAGE_URL } from "../utils/requests";
 
 const SuggestionThumbnail = ({ suggestion }) => {
     const { id, backdrop_path, name, media } = suggestion;
@@ -11,11 +12,13 @@ const SuggestionThumbnail = ({ suggestion }) => {
                 Router.push(`/${media}/${id}`);
             }}
         >
-            <img
+            <Image
                 src={BASE_IMAGE_URL + backdrop_path}
                 alt={name}
                 className="w-full"
-                loading="lazy"
+                layout="intrinsic"
+                height={2160}
+                width={1080}
             />
             <div className="p-2">
                 <strong>{name}</strong>

@@ -1,17 +1,15 @@
+import React, { useState } from "react";
+import Router from "next/router";
 import Image from "next/image";
-import HeaderItem from "./HeaderItem";
 import {
-    BadgeCheckIcon,
     HomeIcon,
     LightningBoltIcon,
-    CollectionIcon,
     SearchIcon,
     UserIcon,
     ClockIcon,
     HeartIcon,
 } from "@heroicons/react/outline";
-import { useState } from "react";
-import Router from "next/router";
+import HeaderItem from "./HeaderItem";
 import SearchBox from "./SearchBox";
 
 const Header = () => {

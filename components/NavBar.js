@@ -1,5 +1,5 @@
-import { genres } from "../utils/requests";
 import Router from "next/router";
+import { genres } from "../utils/requests";
 
 const NavBar = () => {
     return (
@@ -15,7 +15,8 @@ const NavBar = () => {
                     </h2>
                 ))}
             </div>
-            <div className="absolute top-0 right-0 bg-gradient-to-l           from-hulublue h-10 w-1/12 z-50" />
+            {/* TODO: Fix this gradient in next line */}
+            <div className="absolute top-0 right-0 bg-gradient-to-l  from-hulublue h-10 w-1/12 z-50" />
         </nav>
     );
 };

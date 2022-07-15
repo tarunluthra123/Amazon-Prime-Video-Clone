@@ -1,5 +1,14 @@
 import React from "react";
 import axios from "axios";
+import { PlayIcon, HeartIcon, ClockIcon } from "@heroicons/react/solid";
+import {
+    CircularProgressbarWithChildren,
+    buildStyles,
+} from "react-circular-progressbar";
+import PersonThumbnail from "../../components/PersonThumbnail";
+import SuggestionThumbnail from "../../components/SuggestionThumbnail";
+import Header from "../../components/Header";
+import AddToListButton from "../../components/AddToListButton";
 import {
     find,
     BASE_URL,
@@ -8,15 +17,6 @@ import {
     recommendations,
     trailer,
 } from "../../utils/requests";
-import PersonThumbnail from "../../components/PersonThumbnail";
-import SuggestionThumbnail from "../../components/SuggestionThumbnail";
-import Header from "../../components/Header";
-import {
-    CircularProgressbarWithChildren,
-    buildStyles,
-} from "react-circular-progressbar";
-import { PlayIcon, HeartIcon, ClockIcon } from "@heroicons/react/solid";
-import AddToListButton from "../../components/AddToListButton";
 
 const Details = ({ details, cast, suggestions, trailer }) => {
     return (

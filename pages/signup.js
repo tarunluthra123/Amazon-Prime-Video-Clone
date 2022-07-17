@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import CredentialInputBox from "../components/CredentialInputBox";
 import Header from "../components/Header";
-import { getUser, loginUser } from "../utils/user";
+import { loginUser } from "../utils/user";
+import getUser from '../hooks/getUser';
 import { signUpUser } from "../utils/api";
 
 const SignUp = () => {
@@ -105,7 +106,7 @@ const SignUp = () => {
                 <div className="mt-10 text-center mx-auto text-white text-base lg:text-lg">
                     Already have an account?{" "}
                     <span className="text-white font-bold">
-                        <Link href="/signup">Login here</Link>
+                        <Link href="/login">Login here</Link>
                     </span>
                 </div>
             </div>

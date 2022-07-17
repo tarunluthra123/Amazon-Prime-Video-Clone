@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Link from 'next/link';
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Results from "../components/Results";
+import { setWatchlist } from "../redux/list";
 import { fetchWatchList } from "../utils/api";
-import { updateWatchlist } from "../utils/lists";
+import getUser from '../hooks/getUser';
 
-export default function Watchlist({}) {
-    const [loading, setLoading] = useState(true);
-    const [results, setResults] = useState([]);
+export default function Watchlist() {
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
+    const results = useSelector(state => state.list.watchlist);
+
+    const user = getUser();
 
     useEffect(async () => {
-        const response = await fetchWatchList();
-        setResults(response);
+        setLoading(true);
+        if (user) {
+            const response = await fetchWatchList();
+            dispatch(setWatchlist(response));
+        }
         setLoading(false);
-        updateWatchlist(dispatch, response);
-    }, []);
+    }, [user]);
 
     return (
         <div>
@@ -32,7 +38,17 @@ export default function Watchlist({}) {
             {loading && <div className="loader">Loading...</div>}
 
             {/* Results */}
-            {!loading && <Results results={results} />}
+            {!loading && user && <Results results={results} />}
+
+            {!loading && !user && (
+                <div className="text-center font-bold text-xl lg:text-2xl">
+                    Please
+                    <span className="text-link hover:pointer">
+                        <Link href="/login"> sign in </Link>
+                    </span>
+                    to see your watchlist.
+                </div>
+            )}
         </div>
     );
 }

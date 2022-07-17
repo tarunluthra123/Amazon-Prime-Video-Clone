@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import CredentialInputBox from "../components/CredentialInputBox";
-import { getUser, loginUser } from "../utils/user";
+import { loginUser } from "../utils/user";
+import getUser from '../hooks/getUser';
 import Header from "../components/Header";
 import { signInUser } from "../utils/api";
 
@@ -48,11 +49,10 @@ const Login = (props) => {
                 setErrorMessage(message);
             }
 
-            const user = response.user;
+            const { user } = response;
             if (!user) return;
-            user.access = response.access;
 
-            loginUser(dispatch, user, response.refresh);
+            loginUser(dispatch, response.access, response.refresh, user);
         } catch (error) {
             setErrorMessage(error.message);
         }

@@ -5,7 +5,7 @@ import {
     removeFromFavourites,
     removeFromWatchlist,
 } from "../utils/api";
-import { getUser } from "../utils/user";
+import getUser from "../hooks/getUser";
 import { useSelector } from "react-redux";
 import Router from "next/router";
 

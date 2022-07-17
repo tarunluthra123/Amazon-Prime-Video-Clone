@@ -27,6 +27,7 @@ export default function Home({ results }) {
 }
 
 export async function getServerSideProps(context) {
+    // TODO: Set context.res caching
     const genre = context.query.find || "trending";
 
     const url = BASE_URL + genres[genre].url;

@@ -213,6 +213,7 @@ const Details = ({ details, cast, suggestions, trailer }) => {
 export async function getServerSideProps(context) {
     const { id } = context.query;
     let url = BASE_URL + find.movie.url(id);
+    // TODO: Create single API for this
     const details = await axios.get(url).then((res) => res.data);
     url = BASE_URL + credits.movie.url(id);
     const castList = await axios.get(url).then((res) => res.data);

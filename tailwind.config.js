@@ -8,6 +8,7 @@ module.exports = {
         extend: {
             colors: {
                 hulublue: "#06202A",
+                link: "#097099"
             },
             screens: {
                 xs: "400px",

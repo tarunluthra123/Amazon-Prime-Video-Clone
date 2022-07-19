@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { refreshAuthToken, getUserDetails } from '../utils/api';
+import { refreshAuthToken, getUserDetails } from '../api';
 import { loginUser } from '../utils/user';
 import { removeRefreshToken, getRefreshToken } from '../utils/storage';
 

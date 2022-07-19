@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import CredentialInputBox from "../components/CredentialInputBox";
 import Header from "../components/Header";
-import { loginUser } from "../utils/user";
 import getUser from '../hooks/getUser';
-import { signUpUser } from "../utils/api";
+import { loginUser } from "../utils/user";
+import { signUpUser } from "../api";
 
 const SignUp = () => {
     const [credentials, setCredentials] = useState({

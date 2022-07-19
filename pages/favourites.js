@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Results from "../components/Results";
-import { fetchFavourites } from "../utils/api";
+import { fetchFavourites } from "../api";
 import { setFavourites } from "../redux/list";
 import getUser from '../hooks/getUser';
 

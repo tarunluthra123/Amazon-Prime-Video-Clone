@@ -38,15 +38,15 @@ export default function Home({ results }) {
 }
 
 export async function getServerSideProps(context) {
-    // TODO: Set context.res caching
-    const genre = context.query.find || "trending";
+  // TODO: Set context.res caching
+  const genre = context.query.find || "trending";
 
-    const url = BASE_URL + genres[genre].url;
-    const response = await axios.get(url).then((res) => res.data);
+  const url = BASE_URL + genres[genre].url;
+  const response = await axios.get(url).then((res) => res.data);
 
-    return {
-        props: {
-            results: response?.results || null,
-        },
-    };
+  return {
+    props: {
+      results: response?.results || null,
+    },
+  };
 }

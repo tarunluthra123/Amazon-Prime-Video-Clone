@@ -3,8 +3,8 @@ import authSlice from "./auth";
 import listSlice from "./list";
 
 export default configureStore({
-    reducer: {
-        auth: authSlice,
-        list: listSlice,
-    },
+  reducer: {
+    auth: authSlice,
+    list: listSlice,
+  },
 });

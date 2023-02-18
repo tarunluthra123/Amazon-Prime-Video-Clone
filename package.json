@@ -1,28 +1,28 @@
 {
-    "name": "hulu-clone",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start"
-    },
-    "dependencies": {
-        "@heroicons/react": "^1.0.1",
-        "@reduxjs/toolkit": "^1.6.0",
-        "@supabase/supabase-js": "^2.5.0",
-        "axios": "^0.21.1",
-        "next": "10.2.0",
-        "react": "17.0.2",
-        "react-circular-progressbar": "^2.0.4",
-        "react-dom": "17.0.2",
-        "react-flip-move": "^3.0.4",
-        "react-redux": "^7.2.4",
-        "tailwind-scrollbar-hide": "^1.0.3"
-    },
-    "devDependencies": {
-        "autoprefixer": "^10.2.5",
-        "postcss": "^8.2.13",
-        "tailwindcss": "^2.1.2"
-    }
+  "name": "hulu-clone",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@heroicons/react": "^1.0.1",
+    "@reduxjs/toolkit": "^1.6.0",
+    "@supabase/supabase-js": "^2.5.0",
+    "axios": "^0.21.1",
+    "next": "10.2.0",
+    "react": "17.0.2",
+    "react-circular-progressbar": "^2.0.4",
+    "react-dom": "17.0.2",
+    "react-flip-move": "^3.0.4",
+    "react-redux": "^7.2.4",
+    "tailwind-scrollbar-hide": "^1.0.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.13",
+    "tailwindcss": "^2.1.2"
+  }
 }

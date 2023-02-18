@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const listSlice = createSlice({
-    name: "lists",
-    initialState: {
-        watchlist: [],
-        favourites: [],
+  name: "lists",
+  initialState: {
+    watchlist: [],
+    favourites: [],
+  },
+  reducers: {
+    setWatchlist(state, action) {
+      state.watchlist = action.payload;
     },
-    reducers: {
-        setWatchlist(state, action) {
-            state.watchlist = action.payload;
-        },
-        setFavourites(state, action) {
-            state.favourites = action.payload;
-        },
+    setFavourites(state, action) {
+      state.favourites = action.payload;
     },
+  },
 });
 
 export const { setWatchlist, setFavourites } = listSlice.actions;

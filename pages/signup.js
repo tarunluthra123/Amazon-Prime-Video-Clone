@@ -20,8 +20,6 @@ const SignUp = () => {
 
   const isDisabled = loading || credentials.password.length < 6 || credentials.email.length < 6 || credentials.name.length === 0;
 
-  console.log({ isDisabled, loading, credentials })
-
   useEffect(() => {
     if (user) {
       router.push("/");

@@ -1,22 +1,14 @@
-import routes from "../constants/routes";
-import client from "./client";
+import supabase from "../utils/supabase";
 
-export async function fetchWatchList() {
-  const url = routes.watchlist.fetch.url;
-  const response = await client
-    .get(url)
-    .then((res) => res.data)
-    .catch((err) => {
-      console.error(err.response.data.error);
-    });
+export async function fetchWatchList(user) {
+  const { data, error } = await supabase
+    .from('watchlist')
+    .select()
+    .eq('user_id', user.id);
+  
+  if (error || !data) return [];
 
-  if (!response) {
-    return [];
-  }
-
-  const list = response?.watchlist;
-
-  const watchlist = list.map((item) => ({
+  const watchlist = data.map((item) => ({
     ...item,
     fetchData: true,
   }));
@@ -24,18 +16,22 @@ export async function fetchWatchList() {
   return watchlist || [];
 }
 
-export async function addToWatchlist(tmdb_id, media) {
-  const url = routes.watchlist.add.url;
-  const response = await client
-    .post(url, { tmdb_id, media })
-    .then((res) => res.data);
-  return response;
+export async function addToWatchlist(tmdb_id, media, user) {
+  const { data } = await supabase
+    .from('watchlist')
+    .insert({
+      user_id: user.id,
+      tmdb_id,
+      media,
+    });
+  
+  return data;
 }
 
-export async function removeFromWatchlist(tmdb_id, media) {
-  const url = routes.watchlist.add.url;
-  const response = await client
-    .patch(url, { tmdb_id, media })
-    .then((res) => res.data);
-  return response;
+export async function removeFromWatchlist(id) {
+  const { error } = await supabase
+    .from('watchlist')
+    .delete()
+    .eq('id', id);
+  return !!error;
 }

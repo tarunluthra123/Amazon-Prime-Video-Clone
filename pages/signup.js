@@ -5,16 +5,18 @@ import { useDispatch } from "react-redux";
 import CredentialInputBox from "../components/CredentialInputBox";
 import Header from "../components/Header";
 import getUser from '../hooks/getUser';
-import { loginUser } from "../utils/user";
 import { signUpUser } from "../api";
+import { login } from "../redux/auth";
 
 const SignUp = () => {
     const [credentials, setCredentials] = useState({
-        username: "",
+        email: "",
         password: "",
         name: "",
     });
     const [errorMessage, setErrorMessage] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [showConfirmationMessage, setShowConfirmationMessage] = useState(false);
     const dispatch = useDispatch();
     const user = getUser();
     const router = useRouter();
@@ -29,35 +31,35 @@ const SignUp = () => {
         return <div className="loader">Loading...</div>;
     }
 
-    function onChange(e) {
+    const handleChange = (e) => {
         e.preventDefault();
+        const { name, value } = e.target;
         setCredentials((prevCredentials) => ({
             ...prevCredentials,
-            [e.target.name]: e.target.value,
+            [name]: value,
         }));
     }
 
-    async function submit() {
+    const handleSubmit = async () => {
         setErrorMessage(null);
+        setLoading(true);
         try {
-            const response = await signUpUser(
-                credentials.username,
-                credentials.password,
-                credentials.name
-            );
+            const response = await signUpUser(credentials);
 
             if (response.error) {
-                const { message } = response.error.toJSON();
-                setErrorMessage(message);
+                const { message } = response.error;
+                throw new Error(message);
             }
 
-            const user = response.user;
+            const { user } = response.data;
             if (!user) return;
-            user.access = response.access;
 
-            loginUser(dispatch, user, response.refresh);
+            dispatch(login(user));
+            setShowConfirmationMessage(true);
         } catch (error) {
             setErrorMessage(error.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -70,34 +72,40 @@ const SignUp = () => {
                         Sign Up
                     </h2>
                     <p className="text-white text-md lg:text-lg">
-                        Enjoy your favourite movies and shows now !
+                        Enjoy your favorite movies and shows now !
                     </p>
                     <div className="mt-4">
                         <CredentialInputBox
                             title="name"
                             type="text"
-                            onChange={onChange}
+                            onChange={handleChange}
                         />
                         <CredentialInputBox
-                            title="username"
+                            title="email"
                             type="text"
-                            onChange={onChange}
+                            onChange={handleChange}
                         />
                         <CredentialInputBox
                             title="password"
                             type="password"
-                            onChange={onChange}
+                            onChange={handleChange}
                         />
 
                         {errorMessage && (
-                            <div className="h-auto w-full p-4  text-red-500 text-base font-bold rounded-md">
+                            <div className="h-auto w-full p-4 text-red-500 text-base font-bold rounded-md">
                                 {errorMessage}
+                            </div>
+                        )}
+                        {showConfirmationMessage && (
+                            <div className="h-auto w-full p-4 text-green-500 text-base font-bold rounded-md">
+                                Please confirm your email address by clicking on the link sent to you over mail.
                             </div>
                         )}
 
                         <button
                             className="bg-gray-300 text-black font-bold text-base xl:text-lg rounded-full px-8 py-5 w-full mt-5 focus:outline-none focus:ring hover:bg-gray-100"
-                            onClick={submit}
+                            onClick={handleSubmit}
+                            disabled={loading}
                         >
                             Sign Up
                         </button>

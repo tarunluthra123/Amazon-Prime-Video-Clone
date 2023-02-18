@@ -14,5 +14,4 @@ export {
   addToWatchlist,
   removeFromWatchlist,
 } from "./watchlist";
-export { pingTest } from "./ping";
 export { getMovieDetails } from "./movie";

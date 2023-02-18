@@ -8,20 +8,19 @@ import { fetchFavourites } from "../api";
 import { setFavourites } from "../redux/list";
 import getUser from '../hooks/getUser';
 
-export default function Favourites({}) {
+export default function Favourites() {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const results = useSelector(state => state.list.favourites);
-    
     const user = getUser();
 
     useEffect(async () => {
-        setLoading(true);
-        if (user) {
-            const response = await fetchFavourites();
-            dispatch(setFavourites(response));
-        }
-        setLoading(false);
+      setLoading(true);
+      if (user) {
+        const response = await fetchFavourites(user);
+        dispatch(setFavourites(response));
+      }
+      setLoading(false);
     }, [user]);
 
     return (

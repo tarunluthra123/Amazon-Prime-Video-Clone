@@ -48,15 +48,15 @@ const Details = ({ details, cast, suggestions, trailer }) => {
               </div>
               <AddToListButton
                 Icon={HeartIcon}
-                title={"Favourites"}
+                title="Favourites"
                 id={details.id || details.tmdb_id}
-                media={"movie"}
+                media="movie"
               />
               <AddToListButton
                 Icon={ClockIcon}
-                title={"Watchlist"}
+                title="Watchlist"
                 id={details.id || details.tmdb_id}
-                media={"movie"}
+                media="movie"
               />
               {trailer && (
                 <a
@@ -197,7 +197,7 @@ export async function getServerSideProps(context) {
     media: "movie",
   }));
 
-  const trailerKey = videosList.results[0].key;
+  const trailerKey = videosList.results.at(-1).key;
   const trailerLink = `https://www.youtube.com/watch?v=${trailerKey}`;
 
   return {

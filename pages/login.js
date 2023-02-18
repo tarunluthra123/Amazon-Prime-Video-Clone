@@ -5,22 +5,23 @@ import { useRouter } from "next/router";
 import CredentialInputBox from "../components/CredentialInputBox";
 import getUser from '../hooks/getUser';
 import Header from "../components/Header";
-import { loginUser } from "../utils/user";
 import { signInUser } from "../api";
+import { login } from "../redux/auth";
 
-const Login = (props) => {
+const Login = () => {
+    const dispatch = useDispatch();
     const [credentials, setCredentials] = useState({
-        username: "",
-        password: "",
+      email: "",
+      password: "",
     });
     const [errorMessage, setErrorMessage] = useState(null);
-    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
     const user = getUser();
     const router = useRouter();
 
     useEffect(() => {
         if (user) {
-            router.push("/");
+          router.push("/");
         }
     });
 
@@ -30,31 +31,27 @@ const Login = (props) => {
 
     function onChange(e) {
         e.preventDefault();
+        const { name, value } = e.target;
         setCredentials((prevCredentials) => ({
-            ...prevCredentials,
-            [e.target.name]: e.target.value,
+          ...prevCredentials,
+          [name]: value,
         }));
     }
 
     async function submit() {
         setErrorMessage(null);
+        setIsLoading(true);
         try {
-            const response = await signInUser(
-                credentials.username,
-                credentials.password
-            );
-
-            if (response.error) {
-                const { message } = response.error.toJSON();
-                setErrorMessage(message);
-            }
-
-            const { user } = response;
-            if (!user) return;
-
-            loginUser(dispatch, response.access, response.refresh, user);
+          const response = await signInUser(credentials);
+          
+          if (response.error) {
+            throw new Error(response.error.message);
+          }
+          dispatch(login(response.data.user));
         } catch (error) {
-            setErrorMessage(error.message);
+          setErrorMessage(error.message);
+        } finally {
+          setIsLoading(false);
         }
     }
 
@@ -79,7 +76,7 @@ const Login = (props) => {
                     </p>
                     <div className="mt-4">
                         <CredentialInputBox
-                            title="username"
+                            title="email"
                             type="text"
                             onChange={onChange}
                         />
@@ -98,6 +95,7 @@ const Login = (props) => {
                         <button
                             className="bg-gray-300 text-black font-bold text-base xl:text-lg rounded-full px-8 py-5 w-full mt-5 focus:outline-none focus:ring hover:bg-gray-100"
                             onClick={submit}
+                            disabled={isLoading}
                         >
                             Sign in
                         </button>

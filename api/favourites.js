@@ -1,41 +1,37 @@
-import routes from "../constants/routes";
-import client from "./client";
+import supabase from "../utils/supabase";
 
-export async function fetchFavourites() {
-  const url = routes.favourites.fetch.url;
-  const response = await client
-    .get(url)
-    .then((res) => res.data)
-    .catch((err) => {
-      console.error(err.response.data.error);
-    });
+export async function fetchFavourites(user) {
+  const { data, error } = await supabase
+    .from('favourites')
+    .select()
+    .eq('user_id', user.id);
+  
+  if (error || !data) return [];
 
-  if (!response) {
-    return [];
-  }
-
-  const list = response?.favourites;
-
-  const favourites = list.map((item) => ({
+  const watchlist = data.map((item) => ({
     ...item,
     fetchData: true,
   }));
 
-  return favourites || [];
+  return watchlist || [];
 }
 
-export async function addToFavourites(tmdb_id, media) {
-  const url = routes.favourites.add.url;
-  const response = await client
-    .post(url, { tmdb_id, media })
-    .then((res) => res.data);
-  return response;
+export async function addToFavourites(tmdb_id, media, user) {
+  const { data } = await supabase
+    .from('favourites')
+    .insert({
+      user_id: user.id,
+      tmdb_id,
+      media,
+    });
+  
+  return data;
 }
 
-export async function removeFromFavourites(tmdb_id, media) {
-  const url = routes.favourites.add.url;
-  const response = await client
-    .patch(url, { tmdb_id, media })
-    .then((res) => res.data);
-  return response;
+export async function removeFromFavourites(id) {
+  const { error } = await supabase
+    .from('favourites')
+    .delete()
+    .eq('id', id);
+  return !!error;
 }

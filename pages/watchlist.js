@@ -12,16 +12,18 @@ export default function Watchlist() {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const results = useSelector(state => state.list.watchlist);
-
     const user = getUser();
-
-    useEffect(async () => {
+    
+    useEffect(() => {
+      const fetchData = async () => {
         setLoading(true);
         if (user) {
-            const response = await fetchWatchList();
-            dispatch(setWatchlist(response));
+          const response = await fetchWatchList(user);
+          dispatch(setWatchlist(response));
         }
         setLoading(false);
+      };
+      fetchData();
     }, [user]);
 
     return (

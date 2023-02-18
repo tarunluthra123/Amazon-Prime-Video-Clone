@@ -1,60 +1,31 @@
-import routes from "../constants/routes";
-import client from "./client";
+import supabase from "../utils/supabase"; 
 
-export async function signInUser(username, password) {
-  const url = routes.auth.login.url;
-  try {
-    const response = await client
-      .post(url, JSON.stringify({ username, password }))
-      .then((res) => res.data);
-
-    return response;
-  } catch (error) {
-    return {
-      error,
-    };
-  }
+export async function retrieveUser() {
+  const response = await supabase.auth.getSession();
+  return response;
 }
 
-export async function signUpUser(username, password, name) {
-  const url = routes.auth.signup.url;
-  try {
-    const response = await client
-      .post(url, { username, password, name })
-      .then((res) => res.data);
-
-    return response;
-  } catch (error) {
-    return {
-      error,
-    };
-  }
+async function signOut() {
+  const { error } = await supabase.auth.signOut()
 }
 
-export async function refreshAuthToken(refresh) {
-  const url = routes.auth.refresh.url;
-  try {
-    const response = await client
-      .post(url, { refresh })
-      .then((res) => res.data);
-    return response;
-  } catch (error) {
-    return {
-      error,
-    };
-  }
+export async function signInUser({ email, password }) {
+  const response = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  return response;
 }
 
-export async function getUserDetails(access) {
-  const url = routes.auth.details.url;
-  try {
-    const response = await client
-      .get(url, { headers: { Authorization: `Bearer ${access}` } })
-      .then((res) => res.data);
-    return response;
-  } catch (error) {
-    return {
-      error,
-    };
-  }
+export async function signUpUser({ email, password, name }) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        name,
+      }
+    }
+  });
+  return { data, error };
 }

@@ -256,7 +256,7 @@ export async function getServerSideProps(context) {
         media: "tv",
     }));
 
-    const trailerKey = videosList?.results[0]?.key;
+    const trailerKey = videosList?.results.at(-1)?.key;
     const trailerLink = `https://www.youtube.com/watch?v=${trailerKey}`;
 
     return {

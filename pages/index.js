@@ -1,29 +1,40 @@
 import React, { useEffect } from "react";
-// TODO: Use head
-import Head from "next/head";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Results from "../components/Results";
 import { genres, BASE_URL } from "../utils/requests";
-import { pingTest } from "../api";
+import getUser from "../hooks/getUser";
+import { fetchFavourites, fetchWatchList } from "../api";
+import { setFavourites, setWatchlist } from "../redux/list";
 
 export default function Home({ results }) {
-    useEffect(() => {
-        pingTest();
-    }, []);
+  const user = getUser();
+  const dispatch = useDispatch();
 
-    return (
-        <div>
-            <Header />
+  useEffect(() => {
+    if (!user || !user.isLoggedIn) return;
+    const populateData = async () => {
+      const favourites = await fetchFavourites(user);
+      dispatch(setFavourites(favourites));
+      const watchlist = await fetchWatchList(user);
+      dispatch(setWatchlist(watchlist));
+    };
+    populateData();
+  }, [user]);
 
-            {/* Nav */}
-            <NavBar />
+  return (
+    <div>
+      <Header />
 
-            {/* Results */}
-            <Results results={results} />
-        </div>
-    );
+      {/* Nav */}
+      <NavBar />
+
+      {/* Results */}
+      <Results results={results} />
+    </div>
+  );
 }
 
 export async function getServerSideProps(context) {

@@ -197,7 +197,8 @@ export async function getServerSideProps(context) {
     media: "movie",
   }));
 
-  const trailerKey = videosList.results.at(-1).key;
+  const lastVideoIdx = videosList.results.length - 1;
+  const trailerKey = videosList.results?.[lastVideoIdx]?.key || '';
   const trailerLink = `https://www.youtube.com/watch?v=${trailerKey}`;
 
   return {

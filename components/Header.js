@@ -43,7 +43,7 @@ const Header = () => {
           <HeaderItem
             title="ACCOUNT"
             Icon={UserIcon}
-            onClick={() => Router.push("/login")}
+            onClick={() => Router.push("/account")}
           />
         </div>
         {toggle && <SearchBox className="sm:hidden w-full lg:flex" />}

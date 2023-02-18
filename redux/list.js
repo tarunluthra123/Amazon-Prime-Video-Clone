@@ -13,9 +13,13 @@ export const listSlice = createSlice({
     setFavourites(state, action) {
       state.favourites = action.payload;
     },
+    resetLists(state) {
+      state.watchlist = [];
+      state.favourites = [];
+    }
   },
 });
 
-export const { setWatchlist, setFavourites } = listSlice.actions;
+export const { setWatchlist, setFavourites, resetLists } = listSlice.actions;
 
 export default listSlice.reducer;

@@ -5,8 +5,9 @@ export async function retrieveUser() {
   return response;
 }
 
-async function signOut() {
-  const { error } = await supabase.auth.signOut()
+export async function signOut() {
+  const { error } = await supabase.auth.signOut();
+  return error;
 }
 
 export async function signInUser({ email, password }) {

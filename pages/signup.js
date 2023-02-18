@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
 import CredentialInputBox from "../components/CredentialInputBox";
 import Header from "../components/Header";
 import getUser from '../hooks/getUser';
 import { signUpUser } from "../api";
-import { login } from "../redux/auth";
 
 const SignUp = () => {
   const [credentials, setCredentials] = useState({
@@ -17,9 +15,12 @@ const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false);
-  const dispatch = useDispatch();
   const user = getUser();
   const router = useRouter();
+
+  const isDisabled = loading || credentials.password.length < 6 || credentials.email.length < 6 || credentials.name.length === 0;
+
+  console.log({ isDisabled, loading, credentials })
 
   useEffect(() => {
     if (user) {
@@ -54,7 +55,6 @@ const SignUp = () => {
       const { user } = response.data;
       if (!user) return;
 
-      dispatch(login(user));
       setShowConfirmationMessage(true);
     } catch (error) {
       setErrorMessage(error.message);
@@ -103,9 +103,10 @@ const SignUp = () => {
             )}
 
             <button
-              className="bg-gray-300 text-black font-bold text-base xl:text-lg rounded-full px-8 py-5 w-full mt-5 focus:outline-none focus:ring hover:bg-gray-100"
+              className={`bg-gray-300 text-black font-bold text-base xl:text-lg rounded-full px-8
+              py-5 w-full mt-5 focus:outline-none focus:ring ${isDisabled ? 'cursor-not-allowed' : 'hover:bg-gray-100'}`}
               onClick={handleSubmit}
-              disabled={loading}
+              disabled={isDisabled}
             >
               Sign Up
             </button>

@@ -9,9 +9,9 @@ export default function getUser() {
 
   const fetchUser = async () => {
     const response = await retrieveUser();
-    // if (response.user) {
-    //   dispatch(login(response));
-    // }
+    if (response.success) {
+      dispatch(login(response.data));
+    }
   };
 
   useEffect(() => {

@@ -1,14 +1,9 @@
 import supabase from "../utils/supabase";
+import Api from "../utils/client";
 
 export async function fetchWatchList(user) {
-  const { data, error } = await supabase
-    .from('watchlist')
-    .select()
-    .eq('user_id', user.id);
-
-  if (error || !data) return [];
-
-  const watchlist = data.map((item) => ({
+  const response = await Api.get("/watchlist");
+  const watchlist = response.data.watchlist.map((item) => ({
     ...item,
     fetchData: true,
   }));
@@ -16,22 +11,21 @@ export async function fetchWatchList(user) {
   return watchlist || [];
 }
 
-export async function addToWatchlist(tmdb_id, media, user) {
-  const { data } = await supabase
-    .from('watchlist')
-    .insert({
-      user_id: user.id,
-      tmdb_id,
-      media,
-    });
+export async function addToWatchlist(tmdb_id, media) {
+  const response = await Api.post("/watchlist", {
+    tmdb_id,
+    media,
+  });
 
-  return data;
+  return response.success;
 }
 
-export async function removeFromWatchlist(id) {
-  const { error } = await supabase
-    .from('watchlist')
-    .delete()
-    .eq('id', id);
-  return !!error;
+export async function removeFromWatchlist({ tmdb_id, media }) {
+  const response = await Api.delete(`/watchlist/`, {
+    data: {
+      tmdb_id, media
+    }
+  });
+
+  return response.success;
 }

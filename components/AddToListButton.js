@@ -29,7 +29,7 @@ const AddToListButton = ({ title, Icon, id, media }) => {
         addToWatchlist(id, media, user);
       } else {
         const item = watchlist.find((item) => item.tmdb_id == id && item.media == media);
-        removeFromWatchlist(item.id);
+        removeFromWatchlist(item);
       }
       Router.push("/watchlist");
     }

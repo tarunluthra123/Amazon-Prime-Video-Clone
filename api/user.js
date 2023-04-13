@@ -1,17 +1,8 @@
 import Api from '../utils/client';
 
 export async function retrieveUser() {
-  try {
-    const response = await Api.get('/profile');
-    return response;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-}
-
-export async function signOut() {
-  return Promise.resolve(false)
+  const response = await Api.get('/profile');
+  return response;
 }
 
 export async function signInUser({ email, password }) {

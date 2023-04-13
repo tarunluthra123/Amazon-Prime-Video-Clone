@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Header from '../components/Header';
 import getUser from '../hooks/getUser';
-import { signOut } from '../api/user';
 import { logout } from '../redux/auth';
 import { resetLists } from '../redux/list';
 import { removeAuthToken, removeRefreshToken } from '../utils/token';
@@ -15,15 +14,11 @@ export default function Account() {
   const dispatch = useDispatch();
 
   const handleSignOut = async () => {
-    const error = await signOut();
-
-    if (!error) {
-      dispatch(logout());
-      dispatch(resetLists());
-      removeRefreshToken();
-      removeAuthToken();
-      router.push("/");
-    }
+    dispatch(logout());
+    dispatch(resetLists());
+    removeRefreshToken();
+    removeAuthToken();
+    router.push("/");
   };
 
   useEffect(() => {

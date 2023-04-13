@@ -7,6 +7,7 @@ import getUser from '../hooks/getUser';
 import Header from "../components/Header";
 import { signInUser } from "../api";
 import { login } from "../redux/auth";
+import { setAuthToken, setRefreshToken } from "../utils/token";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -44,10 +45,13 @@ const Login = () => {
     try {
       const response = await signInUser(credentials);
 
-      if (response.error) {
-        throw new Error(response.error.message);
+      if (!response.success) {
+        throw new Error(response.error);
       }
+
       dispatch(login(response.data.user));
+      setAuthToken(response.data.access)
+      setRefreshToken(response.data.refresh)
     } catch (error) {
       setErrorMessage(error.message);
     } finally {

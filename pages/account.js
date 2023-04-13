@@ -7,6 +7,7 @@ import getUser from '../hooks/getUser';
 import { signOut } from '../api/user';
 import { logout } from '../redux/auth';
 import { resetLists } from '../redux/list';
+import { removeAuthToken, removeRefreshToken } from '../utils/token';
 
 export default function Account() {
   const user = getUser();
@@ -19,6 +20,9 @@ export default function Account() {
     if (!error) {
       dispatch(logout());
       dispatch(resetLists());
+      removeRefreshToken();
+      removeAuthToken();
+      router.push("/");
     }
   };
 
@@ -46,7 +50,7 @@ export default function Account() {
         <div className="bg-hulublue border border-solid border-gray-300 h-auto shadow-xl p-7  rounded-md">
           You are currently signed in as {" "}
           <span className="text-green-500">
-            {user.user_metadata.name}
+            {user.name}
           </span>
           <br />
 

@@ -5,8 +5,12 @@ import CredentialInputBox from "../components/CredentialInputBox";
 import Header from "../components/Header";
 import getUser from '../hooks/getUser';
 import { signUpUser } from "../api";
+import { useDispatch } from "react-redux";
+import { setAuthToken, setRefreshToken } from "../utils/token";
+import { login } from "../redux/auth";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -14,7 +18,6 @@ const SignUp = () => {
   });
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [showConfirmationMessage, setShowConfirmationMessage] = useState(false);
   const user = getUser();
   const router = useRouter();
 
@@ -45,15 +48,19 @@ const SignUp = () => {
     try {
       const response = await signUpUser(credentials);
 
-      if (response.error) {
-        const { message } = response.error;
+      if (!response.success) {
+        const message = response.error;
         throw new Error(message);
       }
 
-      const { user } = response.data;
+      const { user, access, refresh } = response.data;
       if (!user) return;
 
-      setShowConfirmationMessage(true);
+      dispatch(login(user));
+      setAuthToken(access);
+      setRefreshToken(refresh);
+
+
     } catch (error) {
       setErrorMessage(error.message);
     } finally {
@@ -92,11 +99,6 @@ const SignUp = () => {
             {errorMessage && (
               <div className="h-auto w-full p-4 text-red-500 text-base font-bold rounded-md">
                 {errorMessage}
-              </div>
-            )}
-            {showConfirmationMessage && (
-              <div className="h-auto w-full p-4 text-green-500 text-base font-bold rounded-md">
-                Please confirm your email address by clicking on the link sent to you over mail.
               </div>
             )}
 

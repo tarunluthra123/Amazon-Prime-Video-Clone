@@ -1,32 +1,25 @@
-import supabase from "../utils/supabase";
+import Api from '../utils/client';
 
 export async function retrieveUser() {
-  const response = await supabase.auth.getSession();
-  return response;
+  try {
+    const response = await Api.get('/profile');
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 }
 
 export async function signOut() {
-  const { error } = await supabase.auth.signOut();
-  return error;
+  return Promise.resolve(false)
 }
 
 export async function signInUser({ email, password }) {
-  const response = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  const response = await Api.post('/auth', { email, password });
   return response;
 }
 
 export async function signUpUser({ email, password, name }) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        name,
-      }
-    }
-  });
-  return { data, error };
+  const response = await Api.post('/auth/create', { email, password, name });
+  return response;
 }

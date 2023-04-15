@@ -1,3 +1,5 @@
+import Api from "../utils/client";
+
 export async function fetchFavourites() {
   const response = await Api.get("/favourites");
   const list = response.data.favourites.map((item) => ({

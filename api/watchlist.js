@@ -1,6 +1,6 @@
 import Api from "../utils/client";
 
-export async function fetchWatchList(user) {
+export async function fetchWatchList() {
   const response = await Api.get("/watchlist");
   const watchlist = response.data.watchlist.map((item) => ({
     ...item,

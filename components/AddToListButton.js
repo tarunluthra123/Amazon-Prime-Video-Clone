@@ -21,7 +21,7 @@ const AddToListButton = ({ title, Icon, id, media }) => {
         addToFavourites(id, media, user);
       } else {
         const item = favourites.find((item) => item.tmdb_id == id && item.media == media);
-        removeFromFavourites(item.id);
+        removeFromFavourites(item);
       }
       Router.push("/favourites");
     } else {

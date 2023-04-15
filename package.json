@@ -10,7 +10,6 @@
   "dependencies": {
     "@heroicons/react": "^1.0.1",
     "@reduxjs/toolkit": "^1.6.0",
-    "@supabase/supabase-js": "^2.5.0",
     "axios": "^0.21.1",
     "next": "10.2.0",
     "react": "17.0.2",

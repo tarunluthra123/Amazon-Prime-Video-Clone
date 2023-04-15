@@ -1,4 +1,3 @@
-import supabase from "../utils/supabase";
 import Api from "../utils/client";
 
 export async function fetchWatchList(user) {

@@ -18,6 +18,7 @@ axiosInstance.interceptors.request.use(
       request.headers["Authorization"] = `Bearer ${token}`;
     }
     request.headers["Content-Type"] = "application/json";
+    request.headers["Access-Control-Allow-Origin"] = "*";
     return request;
   },
   (error) => {
